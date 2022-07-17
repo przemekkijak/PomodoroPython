@@ -27,15 +27,15 @@ def main():
     
     while True:
         startCounter(pomodoroTime, "Work time")
-        displayNotification("Work time is over!", "It's time for break")
+        displayNotification("Work time is over!", "It's time for a break")
         if currentShortBreaks >= maxShortBreaks:
             currentShortBreaks = 0
             startCounter(longBreakTime, "Long break")
-            displayNotification("Short break is over!", "It's time for work")
+            displayNotification("Long break is over!", "It's time for work")
         else:
             currentShortBreaks += 1
             startCounter(shortBreakTime, "Short break")
-            displayNotification("Long break is over!", "It's time for work")
+            displayNotification("Short break is over!", "It's time for work")
 
 
 

@@ -1,7 +1,10 @@
 from time import sleep
 import os
 from datetime import timedelta
-import winsound
+from win10toast import ToastNotifier
+
+def displayNotification(title, messageContent):
+    ToastNotifier().show_toast(title, messageContent)
 
 def startCounter(time, currentPhaseName):
     os.system("cls")
@@ -12,9 +15,8 @@ def startCounter(time, currentPhaseName):
         minutesAndSeconds = timedelta(seconds = i)
         print('Time left: ', minutesAndSeconds)
         sleep(1)
-    winsound.Beep(500, 800)
-    
 
+    
 def main():
     currentShortBreaks = 0
 
@@ -25,12 +27,16 @@ def main():
     
     while True:
         startCounter(pomodoroTime, "Work time")
+        displayNotification("Work time is over!", "It's time for break")
         if currentShortBreaks >= maxShortBreaks:
             currentShortBreaks = 0
             startCounter(longBreakTime, "Long break")
+            displayNotification("Short break is over!", "It's time for work")
         else:
             currentShortBreaks += 1
             startCounter(shortBreakTime, "Short break")
+            displayNotification("Long break is over!", "It's time for work")
+
 
 
 if __name__ == "__main__":

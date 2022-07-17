@@ -6,6 +6,7 @@ from win10toast import ToastNotifier
 def displayNotification(title, messageContent):
     ToastNotifier().show_toast(title, messageContent)
 
+
 def startCounter(time, currentPhaseName):
     os.system("cls")
     input("Press enter to start " + currentPhaseName)

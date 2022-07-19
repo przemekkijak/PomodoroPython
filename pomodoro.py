@@ -2,6 +2,7 @@ from time import sleep
 import os
 from datetime import timedelta
 from win10toast import ToastNotifier
+import keyboard
 
 def displayNotification(title, messageContent):
     ToastNotifier().show_toast(title, messageContent)
@@ -14,17 +15,18 @@ def startCounter(time, currentPhaseName):
         os.system("cls")
         print(currentPhaseName)
         minutesAndSeconds = timedelta(seconds = i)
-        print('Time left: ', minutesAndSeconds)
+        print('Time left: ', minutesAndSeconds, '(Press T to skip current phase)')
         sleep(1)
-
+        if keyboard.is_pressed('t'):
+            break
     
 def main():
     currentShortBreaks = 0
 
-    pomodoroTime = int(input("Podaj czas pracy (minuty): "))
-    shortBreakTime = int(input("Podaj czas krotkiej przerwy (minuty): ")) 
-    longBreakTime = int(input("Podaj czas dlugiej przerwy (minuty): "))
-    maxShortBreaks = int(input("Podaj ilosc krotkich przerw: "))
+    pomodoroTime = int(input("Podaj czas pracy (minuty): ")) * 60
+    shortBreakTime = int(input("Podaj czas krotkiej przerwy (minuty): ")) * 60 
+    longBreakTime = int(input("Podaj czas dlugiej przerwy (minuty): ")) * 60
+    maxShortBreaks = int(input("Podaj ilosc krotkich przerw: ")) * 60
     
     while True:
         startCounter(pomodoroTime, "Work time")

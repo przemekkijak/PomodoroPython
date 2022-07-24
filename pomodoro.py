@@ -1,7 +1,7 @@
 from time import sleep
 import os
 from datetime import timedelta
-from win10toast import ToastNotifier
+from win10toast_persist import ToastNotifier
 import keyboard
 
 def displayNotification(title, messageContent):
@@ -15,9 +15,9 @@ def startCounter(time, currentPhaseName):
         os.system("cls")
         print(currentPhaseName)
         minutesAndSeconds = timedelta(seconds = i)
-        print('Time left: ', minutesAndSeconds, '(Press T to skip current phase)')
+        print('Time left: ', minutesAndSeconds, '(Press CTRL+F5 to skip current phase)')
         sleep(1)
-        if keyboard.is_pressed('t'):
+        if keyboard.is_pressed('CTRL') and keyboard.is_pressed('F5'):
             break
     
 def main():
@@ -30,15 +30,15 @@ def main():
     
     while True:
         startCounter(pomodoroTime, "Work time")
-        displayNotification("Work time is over!", "It's time for a break")
+        displayNotification("Work time is over!", "Take a break and refill your glass of water :)")
         if currentShortBreaks >= maxShortBreaks:
             currentShortBreaks = 0
             startCounter(longBreakTime, "Long break")
-            displayNotification("Long break is over!", "It's time for work")
+            displayNotification("Long break is over!", "Close your eyes for a mintue and let them rest before work")
         else:
             currentShortBreaks += 1
             startCounter(shortBreakTime, "Short break")
-            displayNotification("Short break is over!", "It's time for work")
+            displayNotification("Short break is over!", "Let your eyes rest before work, take a look through window")
 
 
 
